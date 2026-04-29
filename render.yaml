@@ -1,0 +1,48 @@
+services:
+  # ── Backend: FastAPI + LiveKit agent in one process ─────────────────────
+  - type: web
+    name: mykare-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python agent.py download-files
+    startCommand: python server.py
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: LIVEKIT_URL
+        sync: false
+      - key: LIVEKIT_API_KEY
+        sync: false
+      - key: LIVEKIT_API_SECRET
+        sync: false
+      - key: DEEPGRAM_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: BEY_API_KEY
+        sync: false
+      - key: BEY_AVATAR_ID
+        sync: false
+      - key: FRONTEND_ORIGINS
+        sync: false
+
+  # ── Frontend: Vite static site ──────────────────────────────────────────
+  - type: web
+    name: mykare-frontend
+    runtime: static
+    rootDir: frontend
+    plan: free
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
