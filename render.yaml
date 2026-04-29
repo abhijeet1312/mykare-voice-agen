@@ -8,7 +8,7 @@ services:
     buildCommand: |
       pip install --upgrade pip
       pip install -r requirements.txt
-      python agent.py download-files
+
     startCommand: python server.py
     healthCheckPath: /health
     envVars:

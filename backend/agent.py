@@ -33,7 +33,7 @@ from livekit.agents import (
     function_tool,
 )
 from livekit.plugins import bey, deepgram, groq, noise_cancellation, silero
-from livekit.plugins.turn_detector.multilingual import MultilingualModel
+# from livekit.plugins.turn_detector.multilingual import MultilingualModel
 
 import db
 
@@ -259,11 +259,11 @@ async def entrypoint(ctx: JobContext) -> None:
 
     # Build the voice pipeline
     session = AgentSession(
-        stt=deepgram.STT(model="nova-3", language="multi"),
+        stt=deepgram.STT(model="nova-3", language="en"),
         llm=groq.LLM(model="llama-3.3-70b-versatile"),
         tts=deepgram.TTS(model="aura-2-thalia-en"),
         vad=silero.VAD.load(),
-        turn_detection=MultilingualModel(),
+        # turn_detection=MultilingualModel(),
     )
 
     # Stream final transcript lines to the frontend for the summary panel

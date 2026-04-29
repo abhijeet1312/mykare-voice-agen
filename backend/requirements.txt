@@ -1,4 +1,4 @@
-livekit-agents[deepgram,groq,silero,turn-detector]~=1.0
+livekit-agents[deepgram,groq,silero]~=1.0
 livekit-plugins-bey~=1.0
 livekit-plugins-noise-cancellation~=0.2
 livekit-api~=1.0
